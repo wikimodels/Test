@@ -4,13 +4,6 @@ const app = new Application();
 
 try {
   app
-    .get("/", (ctx: Context) => {
-      ctx.response.body = "FUCKING SHIT";
-      ctx.response.status = 200;
-      ctx.response.statusText = "Eat shit";
-      ctx.response.headers.set("application-content", "text;utf-8");
-      return;
-    })
     .get("/hello", (ctx: Context) => {
       ctx.response.body = "FUCKING SHIT";
       ctx.response.status = 200;
