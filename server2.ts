@@ -1,29 +1,31 @@
+import express from "npm:express@4.18.2";
+import bodyParser from "npm:body-parser";
 import { Application, Context } from "https://deno.land/x/abc@v1.3.3/mod.ts";
+import { load } from "https://deno.land/std@0.223.0/dotenv/mod.ts";
 
-const app = new Application();
+const env = await load();
 
-try {
-  app
-    .get("/hello", (ctx: Context) => {
-      ctx.response.body = "FUCKING SHIT";
-      ctx.response.status = 200;
-      ctx.response.statusText = "Eat shit";
-      ctx.response.headers.set("application-content", "text;utf-8");
-      return;
-    })
-    .post("/fuck", async (ctx: Context) => {
-      const body = await ctx.body;
-      console.log(await ctx.body);
-      console.log(await ctx.request.headers);
-      console.log((await ctx.request.headers).get("content-type"));
+const app = express();
 
-      ctx.response.status = 200;
-      ctx.response.statusText = "It's OK, fuck";
-      ctx.response.headers.set("content-type", "application/json");
-      ctx.response.body = JSON.stringify({ fuck: "YOU" });
-    })
-    .start({ port: 8000 });
-  console.log("Server --> running");
-} catch (e) {
-  console.log(e);
-}
+app.use(bodyParser.json());
+
+app.get("/", async (req: any, res: any) => {
+  try {
+    res.send("Shit On You");
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+app.post("/fuck", async (req: any, res: any) => {
+  console.log(req.body);
+  res.send({ status: 200, statusText: "Fuck" });
+});
+
+app.listen(8000, async () => {
+  console.log("Server ---> running...");
+});
+
+// main(TF.h1);
+// main(TF.m5);
+// listenQueues();
